@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     "crispy_bootstrap5",
+    "storages"
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,25 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3bot3.S#Boto3Storage'
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "location": "profile_pics",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",  # Static files stored locally
+    },
+}
+
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = "virtual"
